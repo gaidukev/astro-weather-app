@@ -18,6 +18,12 @@ const {
     sunrise,
     sunset,
 } = Astro.props;
+
+const currentYear = currentTime.getFullYear()
+const currentMonth = currentTime.getMonth() + 1
+const currentDay = currentTime.getDate()
+const currentHour = currentTime.getHours()
+const currentMinutes = currentTime.getMinutes()
 // import { queryApi } from '../util/weather-fetch.ts'
 // current: "temperature_2m,apparent_temperature,is_day,precipitation,rain,showers,snowfall,cloud_cover",
 // hourly: "temperature_2m,apparent_temperature,precipitation,rain,showers,snowfall,snow_depth,weather_code",
@@ -34,17 +40,20 @@ const {
 ---
 
 <div id="weather-display-container">
-    <h1>Current Time: <span class="h1-content">{currentTime.toString()}</span></h1>
-    <div class="group relative inline-block">
-        <h1>
-            Current Temperature: <span class="h1-content">{currentTemperature2m}°</span>
+    <div id="current-time-display-container">
+        <h1 id="current-time-header">{currentHour} : {currentMinutes} </h1>
+        <h2 id="current-date-header">{currentYear}/{currentMonth}/{currentDay}</h2>
+    </div>
+    <div class="group relative text-center">
+        <h1 class="flex flex-col items-center">
+            <span class="h1-content">{currentTemperature2m.toFixed(0)}°</span>
         </h1>
         <span class="tooltip">
             (°C) Temperature at 2 meters above the ground.
         </span>
     </div>
-    <div class="group relative inline-block">
-        <h1>Apparent Temperature: <span class="h1-content">{currentApparentTemperature}°</span></h1>
+    <div class="group relative text-center">
+        <h1 class="secondary-header">Feels like: {currentApparentTemperature.toFixed(0)}°</h1>
         <span class="tooltip">
             (°C) Perceived temperature. Accounts for wind chill, relative
             humidity, and solar radiation.
@@ -53,8 +62,22 @@ const {
 </div>
 
 <style>
+    .secondary-header {
+        @apply text-xl text-gray-500 font-light tracking-wide;
+    }
+
+    #current-time-display-container {
+        @apply flex flex-col items-center justify-center;
+    }
+    #current-time-header {
+        @apply text-6xl font-light text-gray-800 tracking-tight mb-2;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    }
+    #current-date-header {
+        @apply text-xl text-gray-500 font-light tracking-wide;
+    }
     .h1-content {
-        @apply text-gray-600 font-normal;
+        @apply text-gray-600 font-normal m-2;
     }
     h1 {
         @apply text-3xl font-light text-gray-800 mb-4 font-semibold;
@@ -63,6 +86,6 @@ const {
         @apply flex flex-col p-4
     }
     .tooltip {
-        @apply invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-opacity absolute -top-10 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-sm rounded py-1 px-2 whitespace-nowrap;
+        @apply invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-opacity bg-gray-800 text-white text-sm rounded py-2 px-3 whitespace-nowrap;
     }
 </style>

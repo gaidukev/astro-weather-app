@@ -1,0 +1,10 @@
+---
+interface Props {
+    dailyTime: Array<Date>;
+    dailyWeatherCodes: Array<number>;
+    sunrise?: Date | null;
+    sunset?: Date | null;
+}
+
+const {dailyTime, dailyWeatherCodes, sunrise, sunset} = Astro.props;
+---
