@@ -1,3 +1,13 @@
+---
+import Header from "../components/Header.astro";
+interface Props {
+	longitude: number;
+	latitude: number;
+}
+
+const { longitude, latitude } = Astro.props;
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
@@ -8,7 +18,10 @@
 		<title>Weather</title>
 	</head>
 	<body>
-		<slot />
+		<Header longitude={longitude} latitude={latitude} />
+		<main>
+			<slot />
+		</main>
 	</body>
 </html>
 <style>

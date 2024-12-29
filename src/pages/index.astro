@@ -3,6 +3,9 @@ import Weather from "../components/Weather.astro";
 import Layout from "../layouts/Layout.astro";
 import Form from "../components/Form.astro";
 
+
+let latitude: number = 53.5501;
+let longitude: number = -113.4687;
 if (Astro.request.method === "POST") {
 	try {
 		const data = await Astro.request.formData();
@@ -170,7 +173,7 @@ const dailyMockSunset = null;
 
 ---
 
-<Layout>
+<Layout longitude={longitude} latitude={latitude}>
 	<Form />
 	<Weather
 		currentTime={new Date("2024-12-28T23:30:00.000Z")}

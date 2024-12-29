@@ -1,0 +1,42 @@
+---
+interface Props {
+    longitude: number;
+    latitude: number;
+}
+
+const { longitude, latitude } = Astro.props;
+---
+
+<header class="w-full bg-white shadow-sm p-4 mb-4">
+    <div class="mx-auto flex justify-between items-center">
+        <button id="open-form-button" class="p-2 hover:bg-gray-100 rounded-lg transition-colors" aria-label="Open location form">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-600">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+
+        </button>
+        <div class="flex gap-4">
+            {(longitude && latitude) ? (
+                <div class="flex gap-4">
+                    <span>Longitude: {longitude}°</span>
+                    <span>Latitude: {latitude}°</span>
+                </div>
+            ) : (
+                <span>No location data</span>
+            )}
+        </div>
+    </div>
+</header>
+
+<script>
+    const button = document.getElementById("open-form-button");
+    const form = document.getElementById("input-weather-form");
+
+    button?.addEventListener("click", () => {
+        if (form) {
+            form.style.display = "flex";
+        }
+    })
+</script>
