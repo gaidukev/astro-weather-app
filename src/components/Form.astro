@@ -1,0 +1,76 @@
+<form method="POST" class="flex flex-col max-w-md px-4" id="input-weather-form">
+    <label for="longitude" class="number-label">
+        Longitude{" "}
+    </label>
+
+    <input
+        type="number"
+        id="longitude"
+        name="longitude"
+        placeholder="Longitude"
+        class="number-input"
+    />
+
+    <label for="latitude" class="number-label"> Latitude </label>
+    <input
+        type="number"
+        id="latitude"
+        name="latitude"
+        placeholder="Latitude"
+        class="number-input"
+    />
+    <div id="input-form-buttons">
+        <button
+            type="submit"
+            class="my-4 px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transition-colors"
+        >
+            Update Forecast
+        </button>
+        <button
+            id="form-close-button"
+            type="button"
+            class="mt-4 self-center px-4 py-2 rounded-full bg-gray-200 hover:bg-gray-300 text-gray-700 flex items-center gap-2 transition-colors"
+            aria-label="Close form"
+        >
+            <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="featjer feather-x"
+            >
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+    </div>
+</form>
+
+<style>
+    #input-form-buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .number-label {
+        @apply px-4 text-lg my-2;
+    }
+
+    .number-input {
+        @apply px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:border-transparent;
+    }
+</style>
+
+<script>
+    const form = document.getElementById("input-weather-form");
+    const button = document.getElementById("form-close-button");
+    button?.addEventListener("click", () => {
+        if (form) {
+            form.style.display = "none";
+        }
+    });
+</script>
