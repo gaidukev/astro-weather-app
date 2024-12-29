@@ -1,0 +1,20 @@
+---
+interface Props {
+    hourlyTime: Array<Date>;
+    hourlyApparentTemperatures: Array<number>;
+}
+
+const {hourlyTime, hourlyApparentTemperatures } = Astro.props;
+---
+
+<div class="max-h-[50vh] overflow-y-auto">
+    <h1>Hourly Forecast</h1>
+    <div class="flex flex-col gap-4 p-4">
+        {hourlyTime.map((time, index) => (
+            <div class="flex">
+                <h1>{time.toString()}</h1>
+                <h1>{hourlyApparentTemperatures[index]}°</h1>
+            </div>
+        ))}
+    </div>
+</div>

@@ -1,0 +1,68 @@
+---
+interface Props {
+    currentTime: Date;
+    currentTemperature2m: number;
+    currentApparentTemperature: number;
+    dailyTime: Array<Date>;
+    dailyWeatherCodes: Array<number>;
+    sunrise?: Array<Date> | null;
+    sunset?: Array<Date> | null;
+}
+
+const {
+    currentTime,
+    currentTemperature2m,
+    currentApparentTemperature,
+    dailyTime,
+    dailyWeatherCodes,
+    sunrise,
+    sunset,
+} = Astro.props;
+// import { queryApi } from '../util/weather-fetch.ts'
+// current: "temperature_2m,apparent_temperature,is_day,precipitation,rain,showers,snowfall,cloud_cover",
+// hourly: "temperature_2m,apparent_temperature,precipitation,rain,showers,snowfall,snow_depth,weather_code",
+// daily: "weather_code,sunrise,sunset,daylight_duration,sunshine_duration,uv_index_max,uv_index_clear_sky_max,wind_speed_10m_max,wind_gusts_10m_max",
+// const params = {
+//     latitude: [53.5501],
+//     longitude: [-113.4687],
+//     current: "temperature_2m,apparent_temperature",
+//     hourly: "temperature_2m,apparent_temperature",
+//     daily: "weather_code,sunrise,sunset"
+// };
+
+// console.log(await queryApi(params))
+---
+
+<div id="weather-display-container">
+    <h1>Current Time: <span class="h1-content">{currentTime.toString()}</span></h1>
+    <div class="group relative inline-block">
+        <h1>
+            Current Temperature: <span class="h1-content">{currentTemperature2m}°</span>
+        </h1>
+        <span class="tooltip">
+            (°C) Temperature at 2 meters above the ground.
+        </span>
+    </div>
+    <div class="group relative inline-block">
+        <h1>Apparent Temperature: <span class="h1-content">{currentApparentTemperature}°</span></h1>
+        <span class="tooltip">
+            (°C) Perceived temperature. Accounts for wind chill, relative
+            humidity, and solar radiation.
+        </span>
+    </div>
+</div>
+
+<style>
+    .h1-content {
+        @apply text-gray-600 font-normal;
+    }
+    h1 {
+        @apply text-3xl font-light text-gray-800 mb-4 font-semibold;
+    }
+    #weather-display-container {
+        @apply flex flex-col p-4
+    }
+    .tooltip {
+        @apply invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-opacity absolute -top-10 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-sm rounded py-1 px-2 whitespace-nowrap;
+    }
+</style>

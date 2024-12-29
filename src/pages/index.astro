@@ -1,8 +1,8 @@
 ---
-import Weather from "../components/Weather.astro";
+import WeatherToday from "../components/WeatherToday.astro";
 import Layout from "../layouts/Layout.astro";
 import Form from "../components/Form.astro";
-
+import HourlyForecast from "../components/HourlyForecast.astro";
 
 let latitude: number = 53.5501;
 let longitude: number = -113.4687;
@@ -170,20 +170,21 @@ const dailyMockWeatherCodes = [3, 2, 3, 3, 3, 71, 71];
 
 const dailyMockSunrise = null;
 const dailyMockSunset = null;
-
 ---
 
 <Layout longitude={longitude} latitude={latitude}>
 	<Form />
-	<Weather
+	<WeatherToday
 		currentTime={new Date("2024-12-28T23:30:00.000Z")}
 		currentTemperature2m={-3.549999952316284}
 		currentApparentTemperature={-7.753007888793945}
-		hourlyTime={mockTimes.map((time) => new Date(time))}
-		hourlyApparentTemperatures={hourlyApparentTemperatures}
 		dailyTime={dailyMockTimes.map((time) => new Date(time))}
 		dailyWeatherCodes={dailyMockWeatherCodes}
 		sunrise={dailyMockSunrise}
 		sunset={dailyMockSunset}
+	/>
+	<HourlyForecast
+		hourlyTime={mockTimes.map((time) => new Date(time))}
+		hourlyApparentTemperatures={hourlyApparentTemperatures}
 	/>
 </Layout>
