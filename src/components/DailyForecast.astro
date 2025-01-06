@@ -10,23 +10,15 @@ interface Props {
 
 const {dailyTime, dailyWeatherCodes, sunrise, sunset} = Astro.props;
 ---
-<script define:vars={{dailyTime, dailyWeatherCodes, sunrise, sunset}}>
-    console.log({
-        dailyTime: JSON.stringify(dailyTime),
-        dailyWeatherCodes,
-        sunrise: JSON.stringify(sunrise),
-        sunset: JSON.stringify(sunset)
-    });
-</script>
 
 <div class="flex flex-col">
-    <h1>Next Few Days</h1>
-    {dailyTime.map((time, index) => {
+    <h1>Upcoming Days</h1>
+    {dailyTime.map((time, index) => (
         <DailyData 
             time={time}
             weatherCode={dailyWeatherCodes[index]}
             sunrise={Array.isArray(sunrise) ? sunrise[index] : null}
             sunset={Array.isArray(sunset) ? sunset[index] : null}
         />
-    })}
+    ))}
 </div>

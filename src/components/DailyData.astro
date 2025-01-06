@@ -10,6 +10,7 @@ const { time, weatherCode, sunrise, sunset } = Astro.props;
 ---
 <div>
     {time ? time.toLocaleString() : 'No time available'}
-    <!-- For debugging: -->
-    <pre>Raw time: {JSON.stringify(time, null, 2)}</pre>
+    {weatherCode}
+    {sunrise ? sunrise.toLocaleString() : ''}
+    {sunset ? sunset.toLocaleString() : ''}
 </div>
