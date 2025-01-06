@@ -1,0 +1,22 @@
+---
+import { number } from 'astro:schema';
+
+interface Props {
+    time: Date,
+    temp: number
+}
+
+const {time, temp} = Astro.props;
+
+const hour: number = time.getHours();
+const minutes: number = time.getMinutes();
+
+const formatNum = (num: number): String => {
+    return num.toString().length == 2 ? num.toString() : `0${num.toString()}`
+}
+---
+
+<div class="flex">
+    <h1>{formatNum(hour)}:{formatNum(minutes)}</h1>
+    <h1>{temp.toFixed(0)}°</h1>
+</div>
