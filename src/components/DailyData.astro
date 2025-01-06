@@ -1,0 +1,15 @@
+---
+interface Props {
+    time: Date,
+    weatherCode: number,
+    sunrise?: null | Date,
+    sunset?: null | Date
+}
+
+const { time, weatherCode, sunrise, sunset } = Astro.props;
+---
+<div>
+    {time ? time.toLocaleString() : 'No time available'}
+    <!-- For debugging: -->
+    <pre>Raw time: {JSON.stringify(time, null, 2)}</pre>
+</div>

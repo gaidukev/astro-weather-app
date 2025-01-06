@@ -3,20 +3,12 @@ interface Props {
     currentTime: Date;
     currentTemperature2m: number;
     currentApparentTemperature: number;
-    dailyTime: Array<Date>;
-    dailyWeatherCodes: Array<number>;
-    sunrise?: Array<Date> | null;
-    sunset?: Array<Date> | null;
 }
 
 const {
     currentTime,
     currentTemperature2m,
-    currentApparentTemperature,
-    dailyTime,
-    dailyWeatherCodes,
-    sunrise,
-    sunset,
+    currentApparentTemperature
 } = Astro.props;
 
 const currentYear = currentTime.getFullYear();

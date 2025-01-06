@@ -16,7 +16,7 @@ const formatNum = (num: number): String => {
 }
 ---
 
-<div class="flex flex-row justify-between hourly-data-container p-3">
+<div class="flex flex-row justify-between hourly-data-container p-3 transition-colors">
     <h1 class="hourly-time">{formatNum(hour)}:{formatNum(minutes)}</h1>
     <h1 class="hourly-apparent-temp">{temp.toFixed(0)}°</h1>
 </div>
