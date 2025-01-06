@@ -9,8 +9,8 @@ const {hourlyTime, hourlyApparentTemperatures } = Astro.props;
 ---
 
 <div class="max-h-[50vh] overflow-y-auto w-fit">
-    <h1>Hourly Forecast</h1>
-    <div class="flex flex-col gap-4 p-4">
+    <h1 id="hourly-forecast-header">Hourly Forecast</h1>
+    <div class="flex flex-col">
         {hourlyTime.map((time, index) => (
             <HourlyTemp
                 time={time}
@@ -19,3 +19,9 @@ const {hourlyTime, hourlyApparentTemperatures } = Astro.props;
         ))}
     </div>
 </div>
+
+<style>
+    #hourly-forecast-header {
+        @apply text-3xl font-light tracking-wide text-center;
+    }
+</style>

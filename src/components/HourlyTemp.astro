@@ -16,7 +16,22 @@ const formatNum = (num: number): String => {
 }
 ---
 
-<div class="flex">
-    <h1>{formatNum(hour)}:{formatNum(minutes)}</h1>
-    <h1>{temp.toFixed(0)}°</h1>
+<div class="flex flex-row justify-between hourly-data-container p-3">
+    <h1 class="hourly-time">{formatNum(hour)}:{formatNum(minutes)}</h1>
+    <h1 class="hourly-apparent-temp">{temp.toFixed(0)}°</h1>
 </div>
+
+<style>
+    .hourly-data-container:hover {
+        background-color: #e07a5f;
+        @apply bg-opacity-10
+    }
+
+    .hourly-time {
+        @apply font-light tracking-wide mb-0;
+    }
+
+    .hourly-apparent-temp {
+        @apply font-light tracking-wide mb-0;
+    }
+</style>
