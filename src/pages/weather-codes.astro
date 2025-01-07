@@ -1,0 +1,50 @@
+---
+import Layout from "../layouts/Layout.astro";
+import WeatherCodeRow from "../components/WeatherCodeRow.astro";
+
+---
+<Layout>
+    <div class="p-8">
+        <h1 class="text-3xl font-light mb-4">
+            Weather Codes Guide
+        </h1>
+        <p class="mb-8 text-gray-600">
+            The weather code for a day denotes the worst weather condition for that day. Data based on WMO.
+        </p>
+        
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-700">Code</th>
+                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-700">Description</th>
+                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-700">Icon</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    <WeatherCodeRow code={0} description={"Clear sky"} icon={"sunny"}/>
+                    <WeatherCodeRow code={1} description={"Clouds are clearing"} icon={"partly_cloudy_day"}/>
+                    <WeatherCodeRow code={2} description={"Consistently cloudy"} icon={"cloud"}/>
+                    <WeatherCodeRow code={3} description={"Clouds are forming"} icon={"cloudy"}/>
+                    <WeatherCodeRow code={4} description={"Smoke"} icon={"mist"}/>
+                    <WeatherCodeRow code={5} description={"Haze"} icon={"mist"}/>
+                    <WeatherCodeRow code={6} description={"Dust is suspended in the air, no wind"} icon={"lens_blur"}/>
+                    <WeatherCodeRow code={7} description={"Dust and wind, no dust or sand whirls"} icon={"lens_blur"}/>
+                    <WeatherCodeRow code={8} description={"Dust/sand whirls"} icon={"storm"}/>
+                    <WeatherCodeRow code={9} description={"Dust or sand storm"} icon={"storm"}/>
+                    <WeatherCodeRow code={10} description={"Mist"} icon={"mist"}/>
+                    <WeatherCodeRow code={11} description={"Patches of fog or ice fog"} icon={"foggy"}/>
+                    <WeatherCodeRow code={12} description={"Continuous fog or ice fog"} icon={"foggy"}/>
+                    <WeatherCodeRow code={13} description={"Lightning, no thunder"} icon={"flash_on"}/>
+                    <WeatherCodeRow code={14} description={"Precipitation, but does not reach the ground"} icon={"rainy"}/>
+                    <WeatherCodeRow code={15} description={"Precipitation, but distant"} icon={"rainy"}/>
+                    <WeatherCodeRow code={16} description={"Nearby precipitation"} icon={"rainy"}/>
+                    <WeatherCodeRow code={17} description={"Thunderstorm, no precipitation"} icon={"thunderstorm"}/>
+                    <WeatherCodeRow code={18} description={"Squalls"} icon={"wind_power"}/>
+                    <WeatherCodeRow code={19} description={"Funnel clouds"} icon={"tornado"}/>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</Layout>
+

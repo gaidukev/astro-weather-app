@@ -4,6 +4,7 @@ import Layout from "../layouts/Layout.astro";
 import Form from "../components/Form.astro";
 import HourlyForecast from "../components/HourlyForecast.astro";
 import DailyForecast from "../components/DailyForecast.astro";
+import LatDialog from "../components/LatDialog.astro";
 
 let latitude: number = 53.5501;
 let longitude: number = -113.4687;
@@ -173,7 +174,8 @@ const dailyMockSunrise = null;
 const dailyMockSunset = null;
 ---
 
-<Layout longitude={longitude} latitude={latitude}>
+<Layout>
+	<LatDialog  longitude={longitude} latitude={latitude} />
 	<Form />
 	<WeatherToday
 		currentTime={new Date("2024-12-28T23:30:00.000Z")}

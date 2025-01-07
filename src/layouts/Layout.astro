@@ -1,11 +1,11 @@
 ---
 import Header from "../components/Header.astro";
-interface Props {
-	longitude: number;
-	latitude: number;
-}
+// interface Props {
+// 	longitude: number;
+// 	latitude: number;
+// }
 
-const { longitude, latitude } = Astro.props;
+// const { longitude, latitude } = Astro.props;
 ---
 
 <!doctype html>
@@ -14,11 +14,13 @@ const { longitude, latitude } = Astro.props;
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 		<meta name="generator" content={Astro.generator} />
 		<title>Weather</title>
 	</head>
 	<body>
-		<Header longitude={longitude} latitude={latitude} />
+		<Header />
 		<main>
 			<slot />
 		</main>
