@@ -7,10 +7,19 @@ interface Props {
 }
 
 const { time, weatherCode, sunrise, sunset } = Astro.props;
+
+const month = time.getMonth() + 1;
+const year = time.getFullYear();
+const day = time.getDate();
 ---
-<div>
-    {time ? time.toLocaleString() : 'No time available'}
-    {weatherCode}
-    {sunrise ? sunrise.toLocaleString() : ''}
-    {sunset ? sunset.toLocaleString() : ''}
+<div class="flex flex-col ml-2 mr-2">
+    <span>
+        {`${year}/${month}/${day}`}
+    </span>
+    <span>
+        {weatherCode}
+    </span>
+
+    {sunrise ? <span> sunrise.toLocaleString() </span> : <></>}
+    {sunset ? <span> sunset.toLocaleString() </span> : <></>}
 </div>

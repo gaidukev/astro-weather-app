@@ -5,18 +5,99 @@ import Form from "../components/Form.astro";
 import HourlyForecast from "../components/HourlyForecast.astro";
 import DailyForecast from "../components/DailyForecast.astro";
 import LatDialog from "../components/LatDialog.astro";
+import { queryApi } from "../util/weather-fetch";
+// import type { WeatherApiSuccess, WeatherApiError, WeatherApiParams, WeatherApiResponse } from '../env.d.ts'
 
 let latitude: number = 53.5501;
 let longitude: number = -113.4687;
 if (Astro.request.method === "POST") {
 	try {
 		const data = await Astro.request.formData();
-		const longitude = data.get("longitude");
-		const latitude = data.get("latitude");
+		const longitudeResponse: FormDataEntryValue | null = data.get("longitude");
+		const latitudeResponse: FormDataEntryValue | null = data.get("latitude");
+
+		if (longitudeResponse == null || latitudeResponse == null) {
+			throw new Error("Error: Received invalid longitude or latitude.");
+		} else {
+			longitude = parseFloat(longitudeResponse.toString());
+			latitude = parseFloat(latitudeResponse.toString());
+		}
+
 	} catch (error) {
 		console.log("Error: ", error);
 	}
 }
+
+const current= "temperature_2m,apparent_temperature,is_day,precipitation,rain,showers,snowfall,cloud_cover";
+const hourly = "temperature_2m,apparent_temperature,precipitation,rain,showers,snowfall,snow_depth,weather_code";
+const daily = "weather_code,sunrise,sunset,daylight_duration,sunshine_duration,uv_index_max,uv_index_clear_sky_max,wind_speed_10m_max,wind_gusts_10m_max";
+const params = {
+    latitude: [latitude],
+    longitude: [longitude],
+    current: current,
+    hourly: hourly,
+    daily: daily
+};
+
+
+
+type WeatherApiParams = {
+        latitude: Array<number>;
+        longitude: Array<number>;
+        current: string;
+        hourly: string;
+        daily: string;
+    }
+
+
+type WeatherApiSuccess = {
+        current: {
+            time: Date;
+            temperature2m: number;
+            apparentTemperature: number;
+        };
+        hourly: {
+            time: Date[];
+            temperature2m: Float32Array;
+            apparentTemperature: Float32Array;
+        };
+        daily: {
+            time: Date[];
+            weatherCode: Float32Array;
+            sunrise: null;
+            sunset: null;
+        };
+    }
+type WeatherApiError = {
+        error: string;
+}
+type WeatherApiResponse = WeatherApiSuccess | WeatherApiError;
+let fetchResult: WeatherApiResponse = await queryApi(params);
+let fetchData: WeatherApiSuccess;
+let fetchError: WeatherApiError;
+
+if ("error" in fetchResult){
+	fetchError = fetchResult
+} else {
+	fetchData = fetchResult;
+}
+
+// Helper function to get type name
+function getTypeDescription(obj: any): string {
+
+
+    if (obj === null) return 'null';
+    if (Array.isArray(obj)) return 'Array';
+    if (obj instanceof Float32Array) return 'Float32Array';
+    if (obj instanceof Date) return 'Date';
+    return typeof obj;
+}
+
+// console.log("Type name:", getTypeDescription(fetchResult));
+// console.log("Object structure:", Object.keys(fetchResult));
+// console.log("FETCH RESULT: ", fetchResult);
+
+// console.log(await queryApi(params))
 
 const mockTimes = [
 	"2024-12-28T00:00:00.000Z",
@@ -177,19 +258,21 @@ const dailyMockSunset = null;
 <Layout>
 	<LatDialog  longitude={longitude} latitude={latitude} />
 	<Form />
-	<WeatherToday
-		currentTime={new Date("2024-12-28T23:30:00.000Z")}
-		currentTemperature2m={-3.549999952316284}
-		currentApparentTemperature={-7.753007888793945}
-	/>
-	<HourlyForecast
-		hourlyTime={mockTimes.map((time) => new Date(time))}
-		hourlyApparentTemperatures={hourlyApparentTemperatures}
-	/>
-	<DailyForecast
-		dailyTime={dailyMockTimes.map((time) => new Date(time))}
-		dailyWeatherCodes={dailyMockWeatherCodes}
-		sunrise={dailyMockSunrise}
-		sunset={dailyMockSunset}
-	/>
+	{fetchData && (
+		<>
+			<WeatherToday
+				currentTime={new Date(fetchData.current.time)}
+				currentTemperature2m={fetchData.current.temperature2m}
+				currentApparentTemperature={fetchData.current.apparentTemperature}
+			/>
+			<HourlyForecast
+				hourlyTime={fetchData.hourly.time.map((time) => new Date(time))}
+				hourlyApparentTemperatures={fetchData.hourly.apparentTemperature}
+			/>
+			<DailyForecast
+				dailyTime={fetchData.daily.time.map((time) => new Date(time))}
+				dailyWeatherCodes={fetchData.daily.weatherCode}
+			/>
+		</>
+	)}
 </Layout>

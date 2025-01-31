@@ -1,17 +1,17 @@
 import { fetchWeatherApi } from "openmeteo";
+import type { WeatherApiResponse as OpenMeteoResponse, VariablesWithTime } from "@openmeteo/sdk";
 
 const queryApi = async (params: { latitude: Array<number>, longitude: Array<number>, current: string, hourly: string, daily: string }) => {
-
     const url = "https://api.open-meteo.com/v1/forecast";
-    let responses;
+    let result: App.WeatherApiResponse;
     try {
-        responses = await fetchWeatherApi(url, params);
+        const responses: OpenMeteoResponse[] = await fetchWeatherApi(url, params, 10, 4, 100);
 
         // Helper function to form time ranges
         const range = (start: number, stop: number, step: number) =>
             Array.from({ length: (stop - start) / step }, (_, i) => start + i * step);
 
-        // Process first location. Add a for-loop for multiple locations or weather models
+
         const response = responses[0];
 
         // Attributes for timezone and location
@@ -21,12 +21,12 @@ const queryApi = async (params: { latitude: Array<number>, longitude: Array<numb
         const latitude = response.latitude();
         const longitude = response.longitude();
 
-        const current = response.current()!;
-        const hourly = response.hourly()!;
-        const daily = response.daily()!;
+        const current = response.current();
+        const hourly = response.hourly();
+        const daily = response.daily();
 
-        // Note: The order of weather variables in the URL query and the indices below need to match!
-        const weatherData = {
+        // Transform the response into our expected format
+        result = {
             current: {
                 time: new Date((Number(current.time()) + utcOffsetSeconds) * 1000),
                 temperature2m: current.variables(0)!.value(),
@@ -47,7 +47,6 @@ const queryApi = async (params: { latitude: Array<number>, longitude: Array<numb
                 sunrise: daily.variables(1)!.valuesArray()!,
                 sunset: daily.variables(2)!.valuesArray()!,
             },
-
         };
 
         // // `weatherData` now contains a simple structure with arrays for datetime and weather data
@@ -66,13 +65,12 @@ const queryApi = async (params: { latitude: Array<number>, longitude: Array<numb
         //         weatherData.daily.sunset[i]
         //     );
         // }
-        responses = weatherData
     } catch (error) {
         console.error("Weather API Error:", error);
-        responses = { error: "Failed to fetch weather data" };
+        result = { error: "Failed to fetch weather data" };
     }
 
-    return responses
+    return result;
 }
 
 export { queryApi }

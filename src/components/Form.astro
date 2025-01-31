@@ -1,4 +1,18 @@
+---
+
+---
+
 <form method="POST" class="w-1/3 z-10 bg-white absolute flex flex-col max-w-md px-4" id="input-weather-form">
+    <label for="location" class="number-label">
+        Location
+    </label>
+    <input 
+        type="text"
+        id="location"
+        name="location"
+        placeholder="Location"
+        class="number-input"
+    />
     <label for="longitude" class="number-label">
         Longitude
     </label>
@@ -69,6 +83,55 @@
 </style>
 
 <script>
+    import { Loader } from '@googlemaps/js-api-loader';
+
+    const loader = new Loader({
+        apiKey: import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY,
+        version: "weekly",
+        libraries: ["places"],
+        authReferrerPolicy: "origin",
+        region: "US",
+        language: "en",
+    });
+
+    try {
+        const input = document.getElementById("location") as HTMLInputElement;
+        const latitudeInput = document.getElementById("latitude") as HTMLInputElement;
+        const longitudeInput = document.getElementById("longitude") as HTMLInputElement;
+
+        loader
+            .importLibrary('places')
+            .then(({Autocomplete}) => {
+                const autocomplete = new Autocomplete(input, {
+                    fields: ["formatted_address", "geometry", "name"],
+                    strictBounds: false,
+                    types: ["geocode"]
+                });
+
+                autocomplete.addListener("place_changed", () => {
+                    const place = autocomplete.getPlace();
+                    
+                    if (!place.geometry?.location) {
+                        console.error("Location not found");
+                        return;
+                    }
+
+                    const latitude = place.geometry.location.lat();
+                    const longitude = place.geometry.location.lng();
+
+                    if (latitudeInput && longitudeInput) {
+                        latitudeInput.value = latitude.toString();
+                        longitudeInput.value = longitude.toString();
+                    }
+                });
+            })
+            .catch((e) => {
+                console.error("Places API Error:", e);
+            });
+    } catch (error) {
+        console.error("Loader Error:", error);
+    }
+
     const form = document.getElementById("input-weather-form");
     const button = document.getElementById("form-close-button");
     button?.addEventListener("click", () => {

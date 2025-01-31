@@ -2,7 +2,7 @@
 import HourlyTemp from './HourlyTemp.astro';
 interface Props {
     hourlyTime: Array<Date>;
-    hourlyApparentTemperatures: Array<number>;
+    hourlyApparentTemperatures: Float32Array;
 }
 
 const {hourlyTime, hourlyApparentTemperatures } = Astro.props;
@@ -22,6 +22,6 @@ const {hourlyTime, hourlyApparentTemperatures } = Astro.props;
 
 <style>
     #hourly-forecast-header {
-        @apply text-3xl font-light tracking-wide text-center;
+        @apply text-3xl font-light tracking-wide;
     }
 </style>

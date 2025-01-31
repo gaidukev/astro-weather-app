@@ -11,6 +11,12 @@ importers:
       '@astrojs/tailwind':
         specifier: ^5.1.4
         version: 5.1.4(astro@5.1.1(jiti@1.21.7)(rollup@4.29.1)(typescript@5.7.2)(yaml@2.6.1))(tailwindcss@3.4.17)
+      '@googlemaps/js-api-loader':
+        specifier: ^1.16.8
+        version: 1.16.8
+      '@openmeteo/sdk':
+        specifier: ^1.18.6
+        version: 1.18.6
       astro:
         specifier: ^5.1.1
         version: 5.1.1(jiti@1.21.7)(rollup@4.29.1)(typescript@5.7.2)(yaml@2.6.1)
@@ -18,6 +24,9 @@ importers:
         specifier: ^1.1.4
         version: 1.1.4
     devDependencies:
+      '@types/google.maps':
+        specifier: ^3.58.1
+        version: 3.58.1
       tailwindcss:
         specifier: ^3.4.17
         version: 3.4.17
@@ -359,6 +368,9 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@googlemaps/js-api-loader@1.16.8':
+    resolution: {integrity: sha512-CROqqwfKotdO6EBjZO/gQGVTbeDps5V7Mt9+8+5Q+jTg5CRMi3Ii/L9PmV3USROrt2uWxtGzJHORmByxyo9pSQ==}
+
   '@img/sharp-darwin-arm64@0.33.5':
     resolution: {integrity: sha512-UT4p+iz/2H4twwAoLCqfA9UH5pI6DggwKEGuaPy7nCVQ8ZsiY5PIcrRvD1DzuY3qYL07NtIQcWnBSY/heikIFQ==}
     engines: {node: ^18.17.0 || ^20.3.0 || >=21.0.0}
@@ -498,8 +510,8 @@ packages:
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
 
-  '@openmeteo/sdk@1.18.0':
-    resolution: {integrity: sha512-rcx3dY4kC3KHndHi4gETJi3QpETf/GriaktoG47YVEMbZ0lXm8G9Ki8qWasXWogSP15F6REET4Z+E/aPw86Crw==}
+  '@openmeteo/sdk@1.18.6':
+    resolution: {integrity: sha512-oeRClpD1V4u+iNVtjUQFjYncc2ZCTA7OXk+yVIVdf3SHDfWk3IuXpJPCkXTOUaahbcBiER0acJndx9oRHY6u2A==}
     engines: {node: '>=12.0'}
 
   '@oslojs/encoding@1.1.0':
@@ -636,6 +648,9 @@ packages:
 
   '@types/estree@1.0.6':
     resolution: {integrity: sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw==}
+
+  '@types/google.maps@3.58.1':
+    resolution: {integrity: sha512-X9QTSvGJ0nCfMzYOnaVs/k6/4L+7F5uCS+4iUmkLEls6J9S/Phv+m/i3mDeyc49ZBgwab3EFO1HEoBY7k98EGQ==}
 
   '@types/hast@3.0.4':
     resolution: {integrity: sha512-WPs+bbQw5aCj+x6laNGWLH3wviHtoCv/P3+otBhbOhJgG8qtpdAMlTCxLtsTWA7LH1Oh/bFCHsBn0TPS5m30EQ==}
@@ -2166,6 +2181,8 @@ snapshots:
   '@esbuild/win32-x64@0.24.2':
     optional: true
 
+  '@googlemaps/js-api-loader@1.16.8': {}
+
   '@img/sharp-darwin-arm64@0.33.5':
     optionalDependencies:
       '@img/sharp-libvips-darwin-arm64': 1.0.4
@@ -2279,7 +2296,7 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.18.0
 
-  '@openmeteo/sdk@1.18.0':
+  '@openmeteo/sdk@1.18.6':
     dependencies:
       flatbuffers: 24.12.23
 
@@ -2387,6 +2404,8 @@ snapshots:
       '@types/ms': 0.7.34
 
   '@types/estree@1.0.6': {}
+
+  '@types/google.maps@3.58.1': {}
 
   '@types/hast@3.0.4':
     dependencies:
@@ -3421,7 +3440,7 @@ snapshots:
 
   openmeteo@1.1.4:
     dependencies:
-      '@openmeteo/sdk': 1.18.0
+      '@openmeteo/sdk': 1.18.6
       flatbuffers: 24.12.23
 
   p-limit@2.3.0:

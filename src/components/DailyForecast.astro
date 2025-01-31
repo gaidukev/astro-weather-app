@@ -3,22 +3,20 @@ import DailyData from './DailyData.astro';
 
 interface Props {
     dailyTime: Array<Date>;
-    dailyWeatherCodes: Array<number>;
-    sunrise?: Array<Date> | null;
-    sunset?: Array<Date> | null;
+    dailyWeatherCodes: Float32Array;
 }
 
-const {dailyTime, dailyWeatherCodes, sunrise, sunset} = Astro.props;
+const {dailyTime, dailyWeatherCodes} = Astro.props;
 ---
 
 <div class="flex flex-col">
-    <h1>Upcoming Days</h1>
-    {dailyTime.map((time, index) => (
-        <DailyData 
-            time={time}
-            weatherCode={dailyWeatherCodes[index]}
-            sunrise={Array.isArray(sunrise) ? sunrise[index] : null}
-            sunset={Array.isArray(sunset) ? sunset[index] : null}
-        />
-    ))}
+    <h1 class="text-3xl font-light tracking-wide">Upcoming Days</h1>
+    <div class="flex flex-row">
+        {dailyTime.map((time, index) => (
+            <DailyData 
+                time={time}
+                weatherCode={dailyWeatherCodes[index]}
+            />
+        ))}
+    </div>
 </div>
